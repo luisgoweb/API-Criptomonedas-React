@@ -1,5 +1,7 @@
 import axios from "axios"
-import { CriptosCurrencyResponseSchema } from "../schema/crypto-schema"
+import { CriptosCurrencyResponseSchema, CryptoPriceSchema } from "../schema/crypto-schema"
+import type { Pair } from "../types"
+
 
 export async function getCryptos() {
     const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=USD'
@@ -8,4 +10,13 @@ export async function getCryptos() {
     if(resutl){
         return resutl.data
     }
+}
+
+export const fetchCurrentCryptoPrince = async (pair: Pair) => {
+     const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${pair.criptocurrency}&tsyms=${pair.currency}`
+     const { data: {DISPLAY} } = await axios(url)
+     const resutl = CryptoPriceSchema.safeParse(DISPLAY[pair.criptocurrency][pair.currency])
+     if(resutl.success){
+        return resutl.data
+     }
 }
