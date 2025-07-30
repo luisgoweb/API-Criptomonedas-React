@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import CriptoSearchForm from "./components/CriptoSearchForm"
-import CryptopriceDisplay from "./components/CryptopriceDisplay"
+import CryptopriceDisplay from "./components/CryptoPriceDisplay"
 import { useCryptoStore } from "./store"
 
 function App() {
